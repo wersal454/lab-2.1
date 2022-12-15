@@ -93,13 +93,12 @@ class CaloriesCL(Calc):
         return str(f'Ваш лимит по калориям на сегодня - {self.limit - self.get_today_stat()} ккалл.')
 
 
-user = CashCL('THB', 1000,'11.15.2022')
-userX = CaloriesCL(1000,'12.12.2022')
-user.add_record(Record('Заправка', 30, '21.10.2021'))
-userX.add_record(Record('Пробежа 10км', 0, '10.19.2022'))
-
+user = CashCL('RUB', 1000,'11.15.2022')
+user.add_record(Record('Заправка', 300, '21.10.2021'))
+user.add_record(Record('Пробежа 10км', 0, '10.19.2022'))
+user.add_record(Record(10, 'Покупка хлеба', '11.19.2022'))
+user.add_record(Record(300, 'Поездака в Нижний Новгород', ''))
 
 print(user.get_today_stat())
 print(user.last_sevendays_stat())
 print(user.get_today_cash_remained())
-print(userX.get_calories_remained())
