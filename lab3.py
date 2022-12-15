@@ -1,11 +1,12 @@
 import datetime
 import math
+
 limit=input("укажите лимит на сегодня:")
-comment=input("укажите комментарий:")
+comment=input(str("укажите комментарий:"))
 ammount=input("укажите число:")
-date=input("укажите дату:")
+date=input(str("укажите дату:"))
 record=[]
-rates={'RUB': 2.61, 'THB': 1.11, 'USD': 3.3}
+rates={'RUB': 1, 'THB': 1.11, 'USD': 3.3}
 
 class Calculator():
     def __init__(self, limit):
@@ -25,8 +26,9 @@ class Record():
 
 class Calc:
 
-    def __init__(self, limit):
+    def __init__(self, limit,date):
         self.limit = limit
+        self.date = date
         self.records = []
 
     def add_record(self, record):
@@ -54,22 +56,20 @@ class Calc:
 
 
     def curr_date_count(self):
-        dates_for_sum = input('Введите интересующие вас даты, через пробел (20.09.2011 13.09.2013) -')
-        sum = 0
-        sum_dates = dates_for_sum.split(' ')
+        amount_summ_of_current_date = 0
 
         for record in self.records:
 
-            if str(datetime.datetime.strptime(record.date, "%d.%m.%Y")) in sum_dates:
-                sum += record.amount
+            if str(record.date) == str(self.date):
+                amount_summ_of_current_date += record.amount
 
-            return sum
+            return amount_summ_of_current_date
 
 
 class CashCL(Calc):
 
-    def __init__(self, currency, limit):
-        super().__init__(limit)
+    def __init__(self, currency, limit,date):
+        super().__init__(limit,date)
         self.currency = currency
 
     def get_today_cash_remained(self):
@@ -86,19 +86,18 @@ class CashCL(Calc):
 
 
 class CaloriesCL(Calc):
-    def __init__(self, limit):
-        super().__init__(limit)
+    def __init__(self, limit,date):
+        super().__init__(limit,date)
 
     def get_calories_remained(self):
         return str(f'Ваш лимит по калориям на сегодня - {self.limit - self.get_today_stat()} ккалл.')
 
 
-user = CashCL('THB', 1000)
-userX = CaloriesCL(1000)
+user = CashCL('THB', 1000,'11.15.2022')
+userX = CaloriesCL(1000,'12.12.2022')
 user.add_record(Record('Заправка', 30, '21.10.2021'))
+userX.add_record(Record('Пробежа 10км', 0, '10.19.2022'))
 
-
-userX.add_record(Record('Пробежа 10км', 300, ''))
 
 print(user.get_today_stat())
 print(user.last_sevendays_stat())

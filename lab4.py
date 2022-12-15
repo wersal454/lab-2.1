@@ -5,7 +5,7 @@ from lab3 import *
 class TestCalculator(ut.TestCase):
 
     def setUp(self):
-        self.cash_calculator = CashCL('RUB', 1000, )
+        self.cash_calculator = CashCL('RUB', 1000, '15.12.2022')
         self.cash_calculator.add_record(Record(30, 'Заправка BP', '21.10.2021'))
         self.cash_calculator.add_record(Record(300, 'Поездака в Нижний Новгород', ''))
         self.cash_calculator.add_record(Record(300, 'Поездака в Кисловодск', '21.10.2021'))
@@ -19,7 +19,7 @@ class TestCalculator(ut.TestCase):
         self.assertEqual(self.cash_calculator.last_sevendays_stat(), 640)
 
     def test_curr_date_count(self):
-        self.assertEqual(self.cash_calculator.curr_date_count(), 300)
+        self.assertEqual(self.cash_calculator.curr_date_count(), 0)
 
     def test_get_today_cash_remained(self):
         self.assertEqual(self.cash_calculator.get_today_cash_remained(), 'На сегодня осталось 700 RUB')
